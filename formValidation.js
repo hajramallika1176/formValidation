@@ -8,32 +8,27 @@
 const isValid = (string, RE) => {
   return RE.test(string);
 };
+const getKeyValue = (RE, key, format) => {
+  const data = prompt("enter your " + key);
+
+  if (!isValid(data, RE)) {
+    console.log("invalid " + key);
+    return getKeyValue(RE, key, format);
+  }
+
+  format[key] = data;
+  return;
+};
 
 const getEmail = (format) => {
   const RE = /^\w+@\w+\.[a-zA-Z]{2,6}$/;
-  const E = prompt("enter your Email Address:");
-
-  if (!isValid(E, RE)) {
-    console.log("invalid Email");
-    return getEmail(format);
-  }
-
-  format["Email Address:"] = E;
-  return;
+  getKeyValue(RE, "email address:", format);
 };
 //123-456-7890
 
 const getPhoneNumber = (format) => {
   const RE = /^(\(\d{3}\)|\d{3})[\-\s\.]?\d{3}[\-\s\.]?\d{4}$/;
-  const PH = prompt("enter your phone number:");
-
-  if (!isValid(PH, RE)) {
-    console.log("invalid phone number");
-    return getPhoneNumber(format);
-  }
-
-  format["Phone Number:"] = PH;
-  return;
+  getKeyValue(RE, "phone number:", format);
 };
 
 // It should match a 16-digit credit card number in the format 1234 5678 1234 5678, with or without hyphens or spaces.
@@ -42,15 +37,7 @@ const getPhoneNumber = (format) => {
 
 const getCreditCardNumber = (format) => {
   const RE = /^(\d{4}[\s\-]?){3}\d{4}$/;
-  const CCN = prompt("enter your Credit Card number:");
-
-  if (!isValid(CCN, RE)) {
-    console.log("invalid Credit Card number");
-    return getCreditCardNumber(format);
-  }
-
-  format["Credit Card Number:"] = CCN;
-  return;
+  getKeyValue(RE, "credit card number:", format);
 };
 
 // It should match a valid date format DD/MM/YYYY.
@@ -58,15 +45,7 @@ const getCreditCardNumber = (format) => {
 
 const getDOB = (format) => {
   const RE = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(\d{4})$/;
-  const DOB = prompt("enter your Date of Birth:");
-
-  if (!isValid(DOB, RE)) {
-    console.log("invalid Date of Birth");
-    return getDOB(format);
-  }
-
-  format["Date of Birth:"] = DOB;
-  return;
+  getKeyValue(RE, "date of birth:", format);
 };
 
 const createForm = () => {
